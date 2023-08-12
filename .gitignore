@@ -1,0 +1,6 @@
+/venv
+/static_files
+/.idea
+/.vscode
+
+*.pyc
