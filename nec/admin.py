@@ -13,3 +13,8 @@ admin.site.register(NECSubject, NECSubjectAdmin)
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(ModelSet)
+class ModelSetAdmin(admin.ModelAdmin):
+    pass
+

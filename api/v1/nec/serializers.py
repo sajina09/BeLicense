@@ -6,6 +6,7 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = NECSubject
         fields = "__all__"
+        # fields = ['subject_name']
 
 
 # class ModelSetSerializer(serializers):

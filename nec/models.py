@@ -12,6 +12,9 @@ class NECSubject(models.Model):
     subject_name = models.CharField(max_length=100, null=False, blank=False)
     syllabus = models.FileField(blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
 
+    def __str__(self) :
+     return self.subject_name
+
 
 class Question(models.Model):
     subject = models.ForeignKey(NECSubject, models.RESTRICT, null=False, blank=False)
@@ -22,6 +25,7 @@ class Question(models.Model):
     D = RichTextField(null=False, blank=False)
     correct_answer = models.CharField(max_length=1, choices=(('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
     explanation = RichTextField(null=False, default="N/A")
+
 
 
 class ModelSet(models.Model):
