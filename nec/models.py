@@ -16,6 +16,7 @@ class NECSubject(models.Model):
      return self.subject_name
 
 
+
 class Question(models.Model):
     subject = models.ForeignKey(NECSubject, models.RESTRICT, null=False, blank=False)
     title = RichTextField(null=False, blank=False)
@@ -25,9 +26,16 @@ class Question(models.Model):
     D = RichTextField(null=False, blank=False)
     correct_answer = models.CharField(max_length=1, choices=(('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
     explanation = RichTextField(null=False, default="N/A")
+    group = models.CharField(max_length=1, choices=(('a', 'Group A'), ('b', 'Group B')), null=True, blank=True)
+
+    def __str__(self) :
+     return self.title
 
 
 
 class ModelSet(models.Model):
     set_name = models.CharField(max_length=100, null=False, blank=False)
     questions = models.ManyToManyField(Question)
+
+    def __str__(self) :
+     return self.set_name
