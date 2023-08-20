@@ -9,5 +9,13 @@ class SubjectSerializer(serializers.ModelSerializer):
         # fields = ['subject_name']
 
 
-# class ModelSetSerializer(serializers):
-#     pass
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class ModelSetSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(many=True)
+    class Meta:
+        model = ModelSet
+        fields = '__all__'

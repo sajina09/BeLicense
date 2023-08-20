@@ -25,8 +25,8 @@ class Question(models.Model):
     C = RichTextField(null=False, blank=False)
     D = RichTextField(null=False, blank=False)
     correct_answer = models.CharField(max_length=1, choices=(('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
-    explanation = RichTextField(null=False, default="N/A")
-    group = models.CharField(max_length=1, choices=(('a', 'Group A'), ('b', 'Group B')), null=True, blank=True)
+    explanation = RichTextField(null=False, default="N/A",)
+    group = models.CharField(max_length=1, choices=(('a', 'Group A'), ('b', 'Group B')), null=False, blank=False , verbose_name='Question Group')
 
     def __str__(self) :
      return self.title
