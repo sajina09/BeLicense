@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from api.v1.nec.serializers import SubjectSerializer, ModelSetSerializer
-from nec.models import NECSubject, ModelSet, Question
+from nec.models import NECSubject, ModelSet
 
 
 class NECSubjectViewset(ModelViewSet):
