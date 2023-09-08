@@ -40,8 +40,8 @@ class ModelSet(models.Model):
     questions = models.ManyToManyField(Question)
     model_set_link = models.CharField(
         max_length=100, null=False, blank=False, default='')
-    # subject = models.ForeignKey(
-    #     NECSubject, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    subject = models.ForeignKey(
+        NECSubject, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
     def __str__(self):
         return self.set_name

@@ -8,5 +8,8 @@ router.register(r'modelsets', ModelSetViewset)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('modelsets/<int:pk>/', ModelSetViewset.as_view({'get': 'get_single_modelset'}), name='modelset-detail'),
+    path('modelsets/<int:pk>/',
+         ModelSetViewset.as_view({'get': 'get_single_modelset'}), name='modelset-detail'),
+    path('modelsets/<int:pk>/get_customized_questions/', ModelSetViewset.as_view(
+        {'get': 'get_customized_questions'}), name='modelset-custom-questions'),
 ]
