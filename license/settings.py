@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-h0_v-61!d%+4om&^o!d@c@p)s9a^-i7%$giu6znv_15=4$r3z=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'sajina.pythonanywhere.com']
 
 
 # Application definition
@@ -53,10 +53,8 @@ ROOT_URLCONF = 'license.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates'
-        ,
-        'DIRS': [BASE_DIR / 'build']
-        ,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,9 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = 'static_files/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static'),
-]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -130,9 +126,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#CKEditor configs
+# CKEditor configs
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_CONFIGS = {
     'default': {
@@ -143,4 +139,5 @@ CKEDITOR_CONFIGS = {
 # Allow requests from your React app's domain
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with your React app's domain
+    "https://beer-become-an-engineer.netlify.app"
 ]
