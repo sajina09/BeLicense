@@ -10,8 +10,10 @@ from license.db import TimeStampModel
 
 class NECSubject(models.Model):
     subject_name = models.CharField(max_length=100, null=False, blank=False)
-    syllabus = models.FileField(blank=True, null=True, validators=[
-                                FileExtensionValidator(allowed_extensions=["pdf"])])
+    # syllabus = models.FileField(blank=True, null=True, validators=[
+    #                             FileExtensionValidator(allowed_extensions=["pdf"])])
+    subject_link = models.CharField(
+        max_length=100, null=False, blank=False, default='')
 
     def __str__(self):
         return self.subject_name
