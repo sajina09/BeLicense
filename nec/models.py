@@ -10,20 +10,40 @@ from license.db import TimeStampModel
 
 class NECSubject(models.Model):
     subject_name = models.CharField(max_length=100, null=False, blank=False)
-    syllabus = models.FileField(blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
+    # syllabus = models.FileField(blank=True, null=True, validators=[
+    #                             FileExtensionValidator(allowed_extensions=["pdf"])])
+    subject_link = models.CharField(
+        max_length=100, null=False, blank=False, default='')
+
+    def __str__(self):
+        return self.subject_name
 
 
 class Question(models.Model):
-    subject = models.ForeignKey(NECSubject, models.RESTRICT, null=False, blank=False)
+    subject = models.ForeignKey(
+        NECSubject, models.RESTRICT, null=False, blank=False)
     title = RichTextField(null=False, blank=False)
     A = RichTextField(null=False, blank=False)
     B = RichTextField(null=False, blank=False)
     C = RichTextField(null=False, blank=False)
     D = RichTextField(null=False, blank=False)
-    correct_answer = models.CharField(max_length=1, choices=(('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
-    explanation = RichTextField(null=False, default="N/A")
+    correct_answer = models.CharField(max_length=1, choices=(
+        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
+    explanation = RichTextField(null=False, default="N/A",)
+    group = models.CharField(max_length=1, choices=(
+        ('a', 'Group A'), ('b', 'Group B')), null=False, blank=False, verbose_name='Question Group')
+
+    def __str__(self):
+        return self.title
 
 
 class ModelSet(models.Model):
     set_name = models.CharField(max_length=100, null=False, blank=False)
     questions = models.ManyToManyField(Question)
+    model_set_link = models.CharField(
+        max_length=100, null=False, blank=False, default='')
+    subject = models.ForeignKey(
+        NECSubject, on_delete=models.CASCADE, null=True, blank=True, default=None)
+
+    def __str__(self):
+        return self.set_name

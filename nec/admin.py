@@ -12,4 +12,9 @@ admin.site.register(NECSubject, NECSubjectAdmin)
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
+    search_fields = ['title']
+
+@admin.register(ModelSet)
+class ModelSetAdmin(admin.ModelAdmin):
     pass
+

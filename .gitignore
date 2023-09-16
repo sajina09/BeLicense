@@ -1,4 +1,5 @@
 /venv
+/myenv
 /static_files
 /.idea
 /.vscode
