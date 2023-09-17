@@ -139,5 +139,5 @@ CKEDITOR_CONFIGS = {
 # Allow requests from your React app's domain
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with your React app's domain
-    "https://beer-become-an-engineer.netlify.app"
+    "https://beer-become-an-engineer.netlify.app",
 ]

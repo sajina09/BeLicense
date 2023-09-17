@@ -1,8 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
-from django.core.validators import FileExtensionValidator
-from license.db import TimeStampModel
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -44,6 +43,12 @@ class ModelSet(models.Model):
         max_length=100, null=False, blank=False, default='')
     subject = models.ForeignKey(
         NECSubject, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    # slug = models.SlugField(unique=False, blank=True)
+
+    # def save(self, *args, **kwargs):
+    #     # Automatically generate the slug from the set_name field
+    #     self.slug = slugify(self.set_name)
+    #     super(ModelSet, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.set_name

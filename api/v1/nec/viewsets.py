@@ -34,9 +34,7 @@ class ModelSetViewset(ModelViewSet):
             # Get questions for Group B
             group_b_questions = model_set.questions.filter(group='b')[
                 :num_group_b]
-
-            print("group_b_questions", group_b_questions)
-
+            print("----group_b_questions", group_b_questions)
             if shuffle_questions:
                 # Shuffle the questions if shuffle_questions is True
                 group_a_questions = list(group_a_questions)
@@ -49,9 +47,6 @@ class ModelSetViewset(ModelViewSet):
                 group_a_questions, many=True)
             serialized_group_b = QuestionSerializer(
                 group_b_questions, many=True)
-
-            print(" Group a data",
-                  serialized_group_b.data)
 
             # Construct the response dictionary
             response_data = {
@@ -80,3 +75,45 @@ class ModelSetViewset(ModelViewSet):
                 'success': False,
             }
             return JsonResponse(response_data, status=500)
+
+    # # def get_single_modelset(self, request, pk=None):
+    #     try:
+    #         # Get the query parameter 'subject_filter'
+    #         subject_filter = request.query_params.get('subject_filter', '')
+
+    #         # Retrieve the ModelSet object
+    #         model_set = self.get_object()
+
+    #         # Filter subjects based on the 'subject_filter' parameter
+    #         filtered_subjects = NECSubject.objects.filter(
+    #             Q(name__icontains=subject_filter)
+    #         )
+
+    #         # Now you can use 'filtered_subjects' in your response or processing logic
+    #         # ...
+
+    #         # Your response data here
+    #         response_data = {
+    #             'data': {
+    #                 # Include filtered_subjects data in the response as needed
+    #             },
+    #             'message': 'ModelSet data fetched successfully',
+    #             'success': True,
+    #         }
+
+    #         return JsonResponse(response_data)
+
+    #     except ModelSet.DoesNotExist:
+    #         response_data = {
+    #             'data': {},
+    #             'message': 'ModelSet not found',
+    #             'success': False,
+    #         }
+    #         return JsonResponse(response_data, status=404)
+    #     except Exception as e:
+    #         response_data = {
+    #             'data': {},
+    #             'message': str(e),
+    #             'success': False,
+    #         }
+    #         return JsonResponse(response_data, status=500)
