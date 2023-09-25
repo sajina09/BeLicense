@@ -141,3 +141,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with your React app's domain
     "https://beer-become-an-engineer.netlify.app",
 ]
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True  # This forces HTTPS redirection
