@@ -1,8 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
-from django.core.validators import FileExtensionValidator
-from license.db import TimeStampModel
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -28,7 +27,7 @@ class Question(models.Model):
     C = RichTextField(null=False, blank=False)
     D = RichTextField(null=False, blank=False)
     correct_answer = models.CharField(max_length=1, choices=(
-        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')), null=True, blank=True)
+        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E','None')), null=True, blank=True)
     explanation = RichTextField(null=False, default="N/A",)
     group = models.CharField(max_length=1, choices=(
         ('a', 'Group A'), ('b', 'Group B')), null=False, blank=False, verbose_name='Question Group')
@@ -44,6 +43,12 @@ class ModelSet(models.Model):
         max_length=100, null=False, blank=False, default='')
     subject = models.ForeignKey(
         NECSubject, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    # slug = models.SlugField(unique=False, blank=True)
+
+    # def save(self, *args, **kwargs):
+    #     # Automatically generate the slug from the set_name field
+    #     self.slug = slugify(self.set_name)
+    #     super(ModelSet, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.set_name
