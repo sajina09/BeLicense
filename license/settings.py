@@ -13,9 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h0_v-61!d%+4om&^o!d@c@p)s9a^-i7%$giu6znv_15=4$r3z='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'sajina.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,9 +139,5 @@ CKEDITOR_CONFIGS = {
 # Allow requests from your React app's domain
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with your React app's domain
-    "https://beer-become-an-engineer.netlify.app",
+    # "https://beer-become-an-engineer.netlify.app",
 ]
-
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True  # This forces HTTPS redirection

@@ -21,4 +21,3 @@ class ModelSetAdmin(admin.ModelAdmin):
     search_fields = ['set_name']
     filter_horizontal = ('questions',)
     list_filter = ['subject']
-

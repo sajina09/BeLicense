@@ -13,6 +13,8 @@ class NECSubject(models.Model):
     #                             FileExtensionValidator(allowed_extensions=["pdf"])])
     subject_link = models.CharField(
         max_length=100, null=False, blank=False, default='')
+    # picture_link = models.CharField(
+    #     max_length=100, null=False, blank=False, default='')
 
     def __str__(self):
         return self.subject_name
@@ -27,7 +29,7 @@ class Question(models.Model):
     C = RichTextField(null=False, blank=False)
     D = RichTextField(null=False, blank=False)
     correct_answer = models.CharField(max_length=1, choices=(
-        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E','None')), null=True, blank=True)
+        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'None')), null=True, blank=True)
     explanation = RichTextField(null=False, default="N/A",)
     group = models.CharField(max_length=1, choices=(
         ('a', 'Group A'), ('b', 'Group B')), null=False, blank=False, verbose_name='Question Group')
