@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 import random  # Import random module
 
-from api.v1.nec.serializers import SubjectSerializer, ModelSetSerializer, QuestionSerializer
+from api.v1.nec.serializers import SubjectSerializer, ModelSetListSerializer, ModelSetSerializer, QuestionSerializer
 from nec.models import NECSubject, ModelSet
 
 
@@ -16,6 +16,19 @@ class NECSubjectViewset(ModelViewSet):
 class ModelSetViewset(ModelViewSet):
     queryset = ModelSet.objects.all()
     serializer_class = ModelSetSerializer
+
+    def get_queryset(self):
+        q = self.queryset
+        if subject_id := self.request.query_params.get("subject"):
+            return q.filter(subject_id=subject_id)
+
+        return q
+
+    def get_serializer_class(self):
+        if (self.get_view_name() or "").lower().endswith("list"):
+            return ModelSetListSerializer
+        else:
+            return self.serializer_class
 
     @action(detail=True, methods=['get'])
     def get_customized_questions(self, request, pk=None):

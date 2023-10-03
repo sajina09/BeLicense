@@ -16,6 +16,9 @@ class NECSubject(models.Model):
     # picture_link = models.CharField(
     #     max_length=100, null=False, blank=False, default='')
 
+    class Meta:
+        ordering = ["subject_name"]
+
     def __str__(self):
         return self.subject_name
 
@@ -51,6 +54,8 @@ class ModelSet(models.Model):
     #     # Automatically generate the slug from the set_name field
     #     self.slug = slugify(self.set_name)
     #     super(ModelSet, self).save(*args, **kwargs)
+    class Meta:
+        ordering = ["set_name"]
 
     def __str__(self):
         return self.set_name
