@@ -14,8 +14,16 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
 
+
+class ModelSetListSerializer(serializers.ModelSerializer):
+    subject_name = serializers.CharField(source="subject.subject_name", read_only=True)
+    class Meta:
+        model = ModelSet
+        fields = ["id", "set_name", "subject_name"]
+
+
 class ModelSetSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True)
     class Meta:
         model = ModelSet
-        fields = '__all__'
+        fields = ["set_name", "questions"]
