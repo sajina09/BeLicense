@@ -29,61 +29,16 @@ class ModelSetViewset(ModelViewSet):
         else:
             return self.serializer_class
 
-    @action(detail=True, methods=['get'])
-    def get_customized_questions(self, request, pk=None):
-        try:
-            num_group_a = int(request.query_params.get('num_group_a', 5))
-            num_group_b = int(request.query_params.get('num_group_b', 5))
-            shuffle_questions = request.query_params.get(
-                'shuffle_questions', 'false').lower() == 'true'
+    def retrieve(self, request, *args, **kwargs):
+        if a_count := request.query_params.get("a_count") or None:
+            a_count = int(a_count)
+        if b_count := request.query_params.get("b_count") or None:
+            b_count = int(a_count)
 
-            model_set = self.get_object()
+        model_set = self.get_object()
 
-            # Get questions for Group A
-            group_a_questions = model_set.questions.filter(group='a')[
-                :num_group_a]
+        q = model_set.questions.none()
+        for grp, count in (("a", a_count), ("b", b_count)):
+            q |= model_set.questions.filter(group=grp).order_by("?")[:count]
 
-            # Get questions for Group B
-            group_b_questions = model_set.questions.filter(group='b')[
-                :num_group_b]
-            print("----group_b_questions", group_b_questions)
-            if shuffle_questions:
-                # Shuffle the questions if shuffle_questions is True
-                group_a_questions = list(group_a_questions)
-                group_b_questions = list(group_b_questions)
-                random.shuffle(group_a_questions)
-                random.shuffle(group_b_questions)
-
-            # Serialize questions and data
-            serialized_group_a = QuestionSerializer(
-                group_a_questions, many=True)
-            serialized_group_b = QuestionSerializer(
-                group_b_questions, many=True)
-
-            # Construct the response dictionary
-            response_data = {
-                'data': {
-                    'group_a_questions': serialized_group_a.data,
-                    'group_b_questions': serialized_group_b.data,
-                    'shuffle_questions': shuffle_questions,
-                },
-                'message': 'Customized questions fetched successfully',
-                'success': True,
-            }
-
-            return JsonResponse(response_data)
-
-        except ModelSet.DoesNotExist:
-            response_data = {
-                'data': {},
-                'message': 'ModelSet not found',
-                'success': False,
-            }
-            return JsonResponse(response_data, status=404)
-        except Exception as e:
-            response_data = {
-                'data': {},
-                'message': str(e),  # You can customize the error message here
-                'success': False,
-            }
-            return JsonResponse(response_data, status=500)
+        return Response({"questions": QuestionSerializer(q, many=True).data})
