@@ -13,8 +13,8 @@ class NECSubject(models.Model):
     #                             FileExtensionValidator(allowed_extensions=["pdf"])])
     subject_link = models.CharField(
         max_length=100, null=False, blank=False, default='')
-    # picture_link = models.CharField(
-    #     max_length=100, null=False, blank=False, default='')
+    picture_link = models.CharField(
+        max_length=100, null=False, blank=False, default='')
 
     class Meta:
         ordering = ["subject_name"]
