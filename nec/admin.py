@@ -9,6 +9,8 @@ from nec.models import NECSubject, Question, ModelSet, Chapter, Topic
 
 class NECSubjectAdmin(admin.ModelAdmin):
     search_fields = ['subject_name']
+    filter_horizontal = ('syllabus',)
+    # list_filter = ['subject']
 
 
 admin.site.register(NECSubject, NECSubjectAdmin)
@@ -44,7 +46,7 @@ class ChapterListAdmin(admin.TabularInline):
     verbose_name_plural = "Sub-chapters"
     formfield_overrides = {
         models.CharField: {
-            'widget': forms.TextInput(attrs={'size': '100'})
+            'widget': forms.TextInput(attrs={'size': '50'})
         }
     }
 
@@ -104,5 +106,6 @@ class TopicAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super(TopicAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields['chapter'].queryset = Chapter.objects.filter(parent_chapter__isnull=False)
+        form.base_fields['chapter'].queryset = Chapter.objects.filter(
+            parent_chapter__isnull=False)
         return form

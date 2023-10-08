@@ -33,7 +33,7 @@ class ModelSetViewset(ModelViewSet):
         if a_count := request.query_params.get("a_count") or None:
             a_count = int(a_count)
         if b_count := request.query_params.get("b_count") or None:
-            b_count = int(a_count)
+            b_count = int(b_count)
 
         model_set = self.get_object()
 
