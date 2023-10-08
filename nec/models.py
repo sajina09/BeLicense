@@ -9,13 +9,13 @@ from django.utils.text import slugify
 
 class NECSubject(models.Model):
     subject_name = models.CharField(max_length=100, null=False, blank=False)
-    # syllabus = models.FileField(blank=True, null=True, validators=[
-    #                             FileExtensionValidator(allowed_extensions=["pdf"])])
     subject_link = models.CharField(
         max_length=100, null=False, blank=False, default='')
     picture_link = models.CharField(
         max_length=100, null=False, blank=False, default='')
     subject_code = models.CharField(max_length=20, blank=False, null=False)
+    syllabus = models.ManyToManyField(
+        "Chapter",  blank=True)
 
     class Meta:
         ordering = ["subject_name"]
@@ -62,17 +62,20 @@ class ModelSet(models.Model):
     def __str__(self):
         return self.set_name
 
-    def save(self, *args, **kwargs):
-        print("Save called!")
-        if self.questions.exclude(subject=self.subject):
-            raise ValueError("The modelset has questions belonging to other subject!")
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     print("Save called!")
+    #     if self.questions.exclude(subject=self.subject):
+    #         raise ValueError(
+    #             "The model set has questions belonging to other subject!")
+    #     super().save(*args, **kwargs)
 
 
 class Chapter(models.Model):
     chapter_name = models.CharField(max_length=255, blank=False, null=False)
-    chapter_code = models.CharField(max_length=20, blank=False, null=False, unique=True)
-    parent_chapter = models.ForeignKey("Chapter", models.CASCADE, blank=True, null=True)
+    chapter_code = models.CharField(
+        max_length=20, blank=False, null=False, unique=True)
+    parent_chapter = models.ForeignKey(
+        "Chapter", models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ["chapter_code"]
